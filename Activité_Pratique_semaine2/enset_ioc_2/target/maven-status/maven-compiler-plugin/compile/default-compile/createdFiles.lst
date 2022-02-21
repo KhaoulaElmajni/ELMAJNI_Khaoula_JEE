@@ -1,0 +1,11 @@
+metier\Calcul.class
+pres\Presentation.class
+metier\MetierImpl.class
+ext\DaoImplVWS.class
+dao\IDao.class
+metier\IMetier.class
+pres\PresAvecSpringXml.class
+pres\PresAvecSpringAnnotations.class
+dao\DaoImpl.class
+pres\Pres2.class
+ext\DaoImpl2.class
