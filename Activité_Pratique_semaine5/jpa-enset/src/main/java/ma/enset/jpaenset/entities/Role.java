@@ -21,6 +21,7 @@ public class Role {
     //@JoinTable(name = "USERS_ROLES",)
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //pour ne pas afficher à chaque utilisateurs ses roles et vice versa
     private List<User> users = new ArrayList<>();
     @Column(name = "DESCRIPTION")
     private String desc;

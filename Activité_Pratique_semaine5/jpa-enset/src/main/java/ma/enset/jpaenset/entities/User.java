@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-
 @Table(name = "USERS")
 @Data @NoArgsConstructor @AllArgsConstructor
 public class User {

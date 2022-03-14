@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class UserController {
     @Autowired
@@ -15,5 +17,10 @@ public class UserController {
     public User user(@PathVariable String username){
         User user = userService.findUserByUserName(username);
         return user;
+    }
+    @GetMapping("/users")
+    public List<User> users(){
+        List<User> users = userService.getAllUsers();
+        return users;
     }
 }
