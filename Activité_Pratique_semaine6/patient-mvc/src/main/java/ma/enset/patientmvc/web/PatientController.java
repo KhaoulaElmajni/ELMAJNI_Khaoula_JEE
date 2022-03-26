@@ -64,6 +64,20 @@ public class PatientController {
         if (bindingResult.hasErrors())
             return "FormPatient";
         patientRepository.save(patient);
-        return "FormPatient";
+        return "redirect:/index";
+    }
+
+    @GetMapping("/edit")
+    public String edit(Model model, Long id){
+        Patient patient = patientRepository.findById(id).get();
+        model.addAttribute("patient",patient);
+        return "EditPatient";
+    }
+
+    @GetMapping("/patient")
+    public String patient(Model model, Long id){
+        Patient patient = patientRepository.findById(id).get();
+        model.addAttribute("patient",patient);
+        return "Patient";
     }
 }

@@ -20,7 +20,7 @@ public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min = 5,max = 30)
+    @Size(min = 3,max = 30,message = "La taille du nom doit etre entre 3 et 30 caractéres")
     private String nom;
     //@Temporal(TemporalType.DATE)
     @NotNull
@@ -28,6 +28,6 @@ public class Patient {
     private Date dateNaissance;
     private boolean malade;
     @NotNull
-    @DecimalMin("100")
+    @DecimalMin("0")
     private int score;
 }
