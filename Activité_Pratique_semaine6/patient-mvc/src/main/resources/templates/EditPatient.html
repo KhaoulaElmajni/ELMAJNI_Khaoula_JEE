@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">Modifier patient</div>
             <div class="card-body">
-                <form th:action="@{/save}" method="post">
+                <form th:action="@{/admin/save}" method="post">
                     <div class="form-group mt-2">
                         <label class="control-label">ID : </label><label th:text="${patient.id}"></label>
                         <input class="form-control" type="hidden"  name="id" th:required="required"

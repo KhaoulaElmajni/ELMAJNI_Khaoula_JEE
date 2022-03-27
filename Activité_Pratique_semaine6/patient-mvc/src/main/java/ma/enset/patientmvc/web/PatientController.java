@@ -22,7 +22,7 @@ import java.util.List;
 public class PatientController {
     private PatientRepository patientRepository;
 
-    @GetMapping(path = "/index")
+    @GetMapping(path = "/user/index")
     public String patients(Model model,
                            //param d'url
                            @RequestParam(name="page", defaultValue = "0") int page,
@@ -36,15 +36,15 @@ public class PatientController {
         return "patients";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String delete(Long id, String keyword, int page){
         patientRepository.deleteById(id);
-        return "redirect:/index?page="+page+"&keyword="+keyword;
+        return "redirect:/user/index?page="+page+"&keyword="+keyword;
     }
 
     @GetMapping("/")
     public String home(){
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
     @GetMapping("/patients")
@@ -53,21 +53,21 @@ public class PatientController {
         return patientRepository.findAll();
     }
 
-    @GetMapping("/formPatient")
+    @GetMapping("/admin/formPatient")
     public String form(Model model){
         model.addAttribute("patient",new Patient());
         return "FormPatient";
     }
 
-    @PostMapping ("/save")
+    @PostMapping ("/admin/save")
     public String save(Model model,@Valid Patient patient, BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "FormPatient";
         patientRepository.save(patient);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/admin/edit")
     public String edit(Model model, Long id){
         Patient patient = patientRepository.findById(id).get();
         model.addAttribute("patient",patient);
