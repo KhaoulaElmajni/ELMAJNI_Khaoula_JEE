@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template1">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="template1"
+      >
 <head>
     <meta charset="UTF-8">
     <title>Patients Management</title>
@@ -37,15 +39,15 @@
                         <td th:text="${p.malade}"></td>
                         <td th:text="${p.score}"></td>
                         <td>
-                            <a onclick="return confirm('Etes-vous sur de supprimer ce patient?')"
+                            <a sec:authorize="hasRole('ADMIN')" onclick="return confirm('Etes-vous sur de supprimer ce patient?')"
                                class="btn btn-outline-danger"
                                th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
                                     class="fas fa-trash-alt"></i></a>
-                            <a class="btn btn-outline-warning"
+                            <a sec:authorize="hasRole('ADMIN')" class="btn btn-outline-warning"
                                th:href="@{editPatient(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
                                     class="fas fa-user-edit"></i></a>
                             <a class="btn btn-outline-info"
-                               th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
+                               th:href="@{listPatient(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
                                     class="fas fa-list"></i></a>
                         </td>
                     </tr>
