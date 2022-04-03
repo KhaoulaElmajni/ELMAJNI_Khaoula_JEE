@@ -1,0 +1,33 @@
+package ma.enset.patientmvc.security;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+//tte classe avec cette annotation va etre instancier au 1er lieu
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        /* la stratégie comment spring sec va chercher les users*/
+        //ici comment spring sec va chercher les users & roles
+        //BDD pour chercher un user ou des users mémoire ou annuaire LDAP
+        auth.inMemoryAuthentication().withUser("user1").password("123").roles("USER");
+        auth.inMemoryAuthentication().withUser("user2").password("123").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("123").roles("USER","ADMIN");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //je demande à spring sec une formulaire d'auth
+        /*pour une formulaire personnalisée
+        *http.formLogin().loginPage("/login"); */
+        http.formLogin();
+        /*gérer les droits d'accés*/
+        //toutes les req nécessite une auth
+        http.authorizeRequests().anyRequest().authenticated();
+    }
+}
