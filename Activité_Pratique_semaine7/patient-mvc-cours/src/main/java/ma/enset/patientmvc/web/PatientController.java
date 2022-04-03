@@ -72,12 +72,25 @@ public class PatientController {
     }
 
     @GetMapping("/admin/editPatient")
-    public String editPatient(Model model,Long id, String keyword, int page){
+    public String editPatient(Model model,Long id,
+                              @RequestParam(defaultValue = "") String keyword,
+                              @RequestParam(defaultValue = "0") int page){
         Patient patient = patientRepository.findById(id).orElse(null);
         if (patient==null) throw new RuntimeException("Patient introuvable!!!");
         model.addAttribute("patient",patient);
         model.addAttribute("keyword",keyword);
         model.addAttribute("page",page);
         return "editPatient";
+    }
+
+    @GetMapping("/user/listPatient")
+    public String listPatient(Model model, Long id,
+                              @RequestParam(defaultValue = "") String keyword,
+                              @RequestParam(defaultValue = "0") int page){
+        Patient patient = patientRepository.findById(id).get();
+        model.addAttribute("patient",patient);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("page",page);
+        return "listPatient";
     }
 }
