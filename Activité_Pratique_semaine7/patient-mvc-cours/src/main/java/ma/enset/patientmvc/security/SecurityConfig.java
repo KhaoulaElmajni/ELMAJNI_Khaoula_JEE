@@ -1,10 +1,13 @@
 package ma.enset.patientmvc.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 //tte classe avec cette annotation va etre instancier au 1er lieu
 @Configuration
@@ -15,9 +18,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /* la stratégie comment spring sec va chercher les users*/
         //ici comment spring sec va chercher les users & roles
         //BDD pour chercher un user ou des users mémoire ou annuaire LDAP
-        auth.inMemoryAuthentication().withUser("user1").password("123").roles("USER");
-        auth.inMemoryAuthentication().withUser("user2").password("123").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("123").roles("USER","ADMIN");
+        //pour ne pas encoder les pwd {noop} ==>.password("{noop}123")
+
+        PasswordEncoder passwordEncoder = passwordEncoder();
+        String encodedPwd = passwordEncoder.encode("123");
+        System.out.println(encodedPwd);
+        auth.inMemoryAuthentication().withUser("user1").password(encodedPwd).roles("USER");
+        auth.inMemoryAuthentication().withUser("user2").password(passwordEncoder.encode("123")).roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("123")).roles("USER","ADMIN");
     }
 
     @Override
@@ -29,5 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*gérer les droits d'accés*/
         //toutes les req nécessite une auth
         http.authorizeRequests().anyRequest().authenticated();
+    }
+
+    @Bean //au démarrage crée moi un PasswordEncoder et tu le place dans context
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
