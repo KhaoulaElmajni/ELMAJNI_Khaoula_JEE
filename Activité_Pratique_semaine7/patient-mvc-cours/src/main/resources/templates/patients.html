@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-header">liste des patients</div>
             <div class="card-body">
-                <form method="get" th:action="@{index}">
+                <form method="get" th:action="@{/user/index}">
                     <label>Chercher un patient :</label>
                     <input type="text" name="keyword" placeholder="Nom du patient" th:value="${keyword}">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
@@ -41,13 +41,13 @@
                         <td>
                             <a sec:authorize="hasRole('ADMIN')" onclick="return confirm('Etes-vous sur de supprimer ce patient?')"
                                class="btn btn-outline-danger"
-                               th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
+                               th:href="@{/admin/delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
                                     class="fas fa-trash-alt"></i></a>
                             <a sec:authorize="hasRole('ADMIN')" class="btn btn-outline-warning"
-                               th:href="@{editPatient(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
+                               th:href="@{/admin/editPatient(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
                                     class="fas fa-user-edit"></i></a>
                             <a class="btn btn-outline-info"
-                               th:href="@{listPatient(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
+                               th:href="@{/user/listPatient(id=${p.id}, keyword=${keyword}, page=${currentPage})}"><i
                                     class="fas fa-list"></i></a>
                         </td>
                     </tr>
@@ -57,7 +57,7 @@
                     <li th:each="page,status:${pages}">
                         <a th:class="${status.index==currentPage?'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"
                            th:text="${status.index}"
-                           th:href="@{index(page=${status.index},keyword=${keyword})}"></a>
+                           th:href="@{/user/index(page=${status.index},keyword=${keyword})}"></a>
                     </li>
                 </ul>
             </div>
