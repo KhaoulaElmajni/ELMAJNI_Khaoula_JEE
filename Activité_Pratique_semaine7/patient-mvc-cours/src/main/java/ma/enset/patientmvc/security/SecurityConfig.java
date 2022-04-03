@@ -34,9 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*pour une formulaire personnalisée
         *http.formLogin().loginPage("/login"); */
         http.formLogin();
+        http.authorizeRequests().antMatchers("/delete/**","/editPatient/**","/save/**","/formPatients/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/index/**").hasRole("USER");
         /*gérer les droits d'accés*/
         //toutes les req nécessite une auth
         http.authorizeRequests().anyRequest().authenticated();
+
+        //gestion des exceptions
+        http.exceptionHandling().accessDeniedPage("/403");
     }
 
     @Bean //au démarrage crée moi un PasswordEncoder et tu le place dans context
