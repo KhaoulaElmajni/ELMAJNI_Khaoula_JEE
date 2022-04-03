@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*pour une formulaire personnalisée
         *http.formLogin().loginPage("/login"); */
         http.formLogin();
+        //ne nécessite pas une auth
+        http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/delete/**","/editPatient/**","/save/**","/formPatients/**").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/index/**").hasRole("USER");
         /*gérer les droits d'accés*/
