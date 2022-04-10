@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import ma.enset.patientmvc.entities.Patient;
 import ma.enset.patientmvc.repositories.PatientRepository;
+import ma.enset.patientmvc.security.entities.AppRole;
+import ma.enset.patientmvc.security.entities.AppUser;
+import ma.enset.patientmvc.security.repositories.AppRoleRepository;
+import ma.enset.patientmvc.security.repositories.AppUserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -15,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @Data @AllArgsConstructor
 public class PatientController {
     private PatientRepository patientRepository;
+    private AppUserRepository appUserRepository;
+    private AppRoleRepository appRoleRepository;
 
     @GetMapping(path = "/user/index")
     public String patients(Model model,
@@ -57,6 +64,18 @@ public class PatientController {
     public String formPatients(Model model){
         model.addAttribute("patient",new Patient());
         return "formPatients";
+    }
+
+    @GetMapping("/user/profile")
+    public String profile(Model model, String username){
+        AppUser appUser = appUserRepository.findByUsername(username);
+        List<AppRole> roles = new ArrayList<>();
+        for (AppRole role: appUser.getAppRoles()) {
+            roles.add(role);
+        }
+        model.addAttribute("roles",roles);
+        model.addAttribute("user",appUser);
+        return "profile";
     }
 
     @PostMapping("/admin/save")

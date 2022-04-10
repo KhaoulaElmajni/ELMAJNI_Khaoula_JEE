@@ -26,14 +26,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = securityService.loadUserByUsername(username);
-        //imperative classique
+        //en utilisant la programmation imperative classique
         /*Collection<GrantedAuthority> authorities = new ArrayList<>();
         appUser.getAppRoles().forEach(role->{
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRoleName());
             authorities.add(authority);
         });*/
 
-        //API des streams
+        //en utilisant l'API des streams
         Collection<GrantedAuthority> authorities1 = appUser
                 .getAppRoles()
                 .stream()

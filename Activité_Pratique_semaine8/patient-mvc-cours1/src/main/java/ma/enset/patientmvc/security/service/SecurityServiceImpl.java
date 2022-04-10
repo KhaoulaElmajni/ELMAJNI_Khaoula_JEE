@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import ma.enset.patientmvc.security.entities.AppRole;
 import ma.enset.patientmvc.security.entities.AppUser;
 import ma.enset.patientmvc.security.repositories.AppRoleRepository;
-import ma.enset.patientmvc.security.repositories.AppUserReository;
+import ma.enset.patientmvc.security.repositories.AppUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,15 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 /**
- * coucher service pour la sécurité
+ * couche service pour la sécurité
  * */
 
 @Service
-@Slf4j
+@Slf4j //permet de donner un attribut appelé log ==> permet de loger
 @AllArgsConstructor
 @Transactional
 public class SecurityServiceImpl implements SecurityService {
-    private AppUserReository appUserReository;
+    private AppUserRepository appUserReository;
     private AppRoleRepository appRoleRepository;
     private PasswordEncoder passwordEncoder;
 
