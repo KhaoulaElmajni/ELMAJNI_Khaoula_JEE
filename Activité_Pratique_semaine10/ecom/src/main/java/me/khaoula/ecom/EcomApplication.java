@@ -20,7 +20,8 @@ public class EcomApplication {
     }
 
     @Bean
-    CommandLineRunner start(ProductRepository productRepository, CategoryRepository categoryRepository){
+    CommandLineRunner start(ProductRepository productRepository,
+                            CategoryRepository categoryRepository){
         return args -> {
             /*Stream.of("Computer","printer","smart phone").forEach(name->{
                 productRepository.save(new Product(UUID.randomUUID().toString(),name,

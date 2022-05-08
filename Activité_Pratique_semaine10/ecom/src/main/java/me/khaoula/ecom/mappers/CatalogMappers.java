@@ -9,10 +9,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+/**
+ * mapper permet de transferer un obj vers un autre obj
+ *
+ * */
+
+
 @Service
 public class CatalogMappers {
     public ProductDTO fromProduct(Product product){
         ProductDTO productDTO = new ProductDTO();
+        //BeanUtils.copyProperties(a,b) : si les objets ont les memes propriétés il fait le transfert (get/set)
+        //des copies de a à b
         BeanUtils.copyProperties(product,productDTO);
         productDTO.setCategoryDTO(fromCategory(product.getCategory()));
         return productDTO;

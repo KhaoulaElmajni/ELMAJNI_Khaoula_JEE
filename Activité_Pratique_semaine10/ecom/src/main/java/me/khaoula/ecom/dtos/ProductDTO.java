@@ -3,8 +3,9 @@ package me.khaoula.ecom.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.khaoula.ecom.entities.Category;
 
+//Data Trasfer Object ==> DTO
+//n'est pas une entité JPA
 @Data @NoArgsConstructor @AllArgsConstructor
 public class ProductDTO {
     private String id;

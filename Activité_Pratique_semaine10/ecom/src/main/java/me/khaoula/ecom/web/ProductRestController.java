@@ -14,8 +14,6 @@ import java.util.UUID;
 @RestController
 public class ProductRestController {
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
     private ProductService productService;
 
     /**
@@ -33,9 +31,10 @@ public class ProductRestController {
      *
     * */
     @GetMapping("/products/{id}")
-    public  Product getProduct(@PathVariable(name="id") String id){
-        return productRepository.findById(id).get();
+    public  ProductDTO getProduct(@PathVariable(name="id") String id){
+        return productService.getProduct(id);
     }
+
 
     @PostMapping("/products")
     public  ProductDTO saveProduct(@RequestBody ProductDTO productDTO){
@@ -43,13 +42,13 @@ public class ProductRestController {
     }
 
     @PutMapping("/products/{id}")
-    public  Product updateProduct(@RequestBody Product product,@PathVariable String id){
-        product.setId(id);
-        return productRepository.save(product);
+    public  ProductDTO updateProduct(@RequestBody ProductDTO productDTO,@PathVariable String id){
+        productDTO.setId(id);
+        return productService.updateProduct(productDTO);
     }
 
     @DeleteMapping("/products/{id}")
     public void deleteProduct(@PathVariable String id){
-         productRepository.deleteById(id);
+         productService.deleteProduct(id);
     }
 }

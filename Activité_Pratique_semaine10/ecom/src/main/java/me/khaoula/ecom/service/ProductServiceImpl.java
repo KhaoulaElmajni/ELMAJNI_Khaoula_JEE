@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductDTO getProduct(String id) {
         Product product = productRepository.findById(id).
-                orElseThrow(()->new RuntimeException("Prodct not found"));
+                orElseThrow(()->new RuntimeException("Product not found"));
         return catalogMappers.fromProduct(product);
     }
 
